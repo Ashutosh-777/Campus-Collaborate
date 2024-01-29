@@ -1,3 +1,4 @@
+import 'package:campus_collaborate/constants/themes.dart';
 import 'package:campus_collaborate/services/navigation_services.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -22,6 +23,7 @@ class MyApp extends StatelessWidget {
       navigatorKey: navigationService.navigatorKey,
       onGenerateRoute: router.generateRoute,
       initialRoute: "/",
+      theme: Themes.theme,
       onGenerateInitialRoutes: (String initialName) {
         return [router.generateRoute(const RouteSettings(name: "/"))];
       },
