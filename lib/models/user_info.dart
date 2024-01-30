@@ -1,7 +1,7 @@
 class UserInfo {
   final String name;
   final String rollNumber;
-  final List<String> skills;
+  final List<dynamic> skills;
   final List<String> courses;
   final String email;
   final String? url;

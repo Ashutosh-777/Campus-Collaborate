@@ -1,8 +1,8 @@
-import 'package:campus_collaborate/constants/skills.dart';
 import 'package:campus_collaborate/models/user_info.dart';
+import 'package:campus_collaborate/services/roll_number_decoder.dart';
 import 'package:campus_collaborate/widgets/commonWidgets/app_bar.dart';
 import 'package:campus_collaborate/widgets/commonWidgets/common_container.dart';
-import 'package:campus_collaborate/widgets/commonWidgets/skillsContainer.dart';
+import 'package:campus_collaborate/widgets/commonWidgets/skills_container.dart';
 import 'package:flutter/material.dart';
 
 class ProfileScreen extends StatefulWidget {
@@ -16,6 +16,8 @@ class ProfileScreen extends StatefulWidget {
 class _ProfileScreenState extends State<ProfileScreen> {
   @override
   Widget build(BuildContext context) {
+    final RollNumberDecoder rollNumberDecoder =
+        RollNumberDecoder(rollNumber: int.parse(widget.userInfo.rollNumber));
     return SafeArea(
       child: Scaffold(
         appBar: customAppBar('Profile', () {}),
@@ -25,29 +27,74 @@ class _ProfileScreenState extends State<ProfileScreen> {
           child: Column(
             children: [
               Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Icon(Icons.supervised_user_circle, size: 100,),
-                  const SizedBox(width: 10,),
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text('Manik', style: TextStyle(fontSize: 15),),
-                      Text('220107052', style: TextStyle(fontSize: 15),),
-                      Text('Manik', style: TextStyle(fontSize: 15),),
-                      Text('Manik', style: TextStyle(fontSize: 15),),
-                    ],
+                 Row(
+                   children: [
+                     const Icon(
+                       Icons.supervised_user_circle,
+                       size: 90,
+                     ),
+                     const SizedBox(
+                       width: 10,
+                     ),
+                     Column(
+                       mainAxisAlignment: MainAxisAlignment.start,
+                       crossAxisAlignment: CrossAxisAlignment.start,
+                       children: [
+                         Text(
+                           widget.userInfo.name,
+                           style: const TextStyle(fontSize: 13),
+                         ),
+                         Text(
+                           widget.userInfo.rollNumber,
+                           style: const TextStyle(fontSize: 13),
+                         ),
+                         Text(
+                           rollNumberDecoder.getBranch(),
+                           style: const TextStyle(fontSize: 13),
+                         ),
+                         const Text(
+                           'B.Tech',
+                           style: TextStyle(fontSize: 13),
+                         ),
+                       ],
+                     ),
+                   ],
+                 ),
+                  GestureDetector(
+                    child: Column(
+                      children: [
+                        Image.asset('assets/logout.png', width: 30, height: 30,),
+                        const Text('Logout', style: TextStyle(fontSize: 10),)
+                      ],
+                    ),
                   )
                 ],
               ),
-              const SizedBox(height: 10,),
+              const SizedBox(
+                height: 10,
+              ),
               CommonContainer(children: [
-                Text(
+                const Text(
                   'Skills',
-                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.w400),
+                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
                 ),
-                const SizedBox(height: 5,),
-                SkillContainer(skill: SkillsEnum.javascript)
+                const SizedBox(
+                  height: 5,
+                ),
+                SkillsListView(skillsList: widget.userInfo.skills),
+              ]),
+              const SizedBox(height: 20,),
+              CommonContainer(children: [
+                const Text(
+                  'Courses',
+                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
+                ),
+                const SizedBox(
+                  height: 5,
+                ),
+                SkillsListView(skillsList: widget.userInfo.courses),
               ])
             ],
           ),

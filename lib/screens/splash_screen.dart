@@ -11,11 +11,11 @@ class SplashScreen extends StatelessWidget {
     return SafeArea(
       child: ProfileScreen(
         userInfo: UserInfo(
-            courses: [],
+            courses: ["Mathematics and Computing", "Course-2", "Course-3"],
             email: " ",
-            name: "",
-            rollNumber: "",
-            skills: [""],
+            name: "Manik Mehta",
+            rollNumber: "220107052",
+            skills: [6, 8, "Mechanical", 15, "Robotics", 17, "Shell"],
             url: ""),
       ),
     );
